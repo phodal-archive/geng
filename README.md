@@ -1,5 +1,7 @@
 # Geng
 
+[![Build Status](https://travis-ci.org/phodal/geng.svg?branch=master)](https://travis-ci.org/phodal/geng)
+
 > 天干物燥，小心火烛
 
 Try NLP in Step 1. Convert Time to Old-Chinese Time, and Convert Old-Chinese Time to New Time. 
