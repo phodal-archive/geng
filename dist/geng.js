@@ -3,7 +3,16 @@
   "use strict";
 
 var Geng = function () {
+	this.rule = [];
+	this.error = [];
+};
 
+Geng.learn = function (rule){
+	if(rule.constructor === RegExp) {
+		this.rule.append(rule);
+	} else {
+		this.error.append('not a regex');
+	}
 };
 
 Geng.parser = function (time) {
