@@ -2,9 +2,15 @@
 
 [![Build Status](https://travis-ci.org/phodal/geng.svg?branch=master)](https://travis-ci.org/phodal/geng)
 
-> 天干物燥，小心火烛
 
-Try NLP in Step 1. Convert Time to Old-Chinese Time, and Convert Old-Chinese Time to New Time. 
+      __ _  ___ _ __   __ _
+     / _` |/ _ \ '_ \ / _` |
+    | (_| |  __/ | | | (_| |
+     \__, |\___|_| |_|\__, |
+     |___/            |___/
+ 
+
+> DSL trilogy 1 NLP. 
 
 ##Note
 
