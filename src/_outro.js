@@ -1,1 +1,3 @@
+root.Geng = Geng;
+
 }(this));

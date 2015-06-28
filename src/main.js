@@ -2,6 +2,14 @@ var Geng = function () {
 	this.rule = [];
 	this.error = [];
 };
+//
+//var handler = {
+//	get: function(target, name) {
+//		return target.hasOwnProperty(name) ? target[name] : 42;
+//	}
+//};
+//
+//var g = new Proxy({}, handler);
 
 Geng.learn = function (rule){
 	if(rule.constructor === RegExp) {
@@ -26,5 +34,3 @@ Geng.convert = function () {
 };
 
 Geng.version = Geng.VERSION = '0.0.0';
-
-root.Geng = Geng;

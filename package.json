@@ -16,15 +16,19 @@
   "readmeFilename": "README.md",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "jasmine-ajax": "2.99.0",
-    "grunt-replace": "0.8.0",
+    "codeclimate-test-reporter": "0.0.4",
+    "grunt": "~0.4.5",
+    "grunt-babel": "^5.0.1",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-jasmine": "~0.8.2",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-uglify": "~0.2.4",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-jasmine": "~0.8.0",
+    "grunt-replace": "0.8.0",
     "grunt-template-jasmine-istanbul": "0.3.3",
-    "codeclimate-test-reporter": "0.0.4"
+    "harmony-reflect": "1.3.1",
+    "jasmine-ajax": "2.99.0",
+    "load-grunt-tasks": "^3.2.0"
   }
 }
