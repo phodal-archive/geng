@@ -14,7 +14,7 @@ describe('Lexer', function () {
 			console.log(lexeme);
 		});
 
-		_lexer.setInput("37");
+		_lexer.setInput('37');
 		_lexer.lex();
 		expect(console.log).toHaveBeenCalledWith('37');
 	});
@@ -22,10 +22,10 @@ describe('Lexer', function () {
 
 	it('should return input type', function () {
 		_lexer.addRule(/[a-f\d]+/i, function () {
-			return "HEX";
+			return 'HEX';
 		});
 
-		_lexer.setInput("aa0000");
+		_lexer.setInput('aa0000');
 		var result = _lexer.lex();
 		expect(result).toBe('HEX');
 	});
