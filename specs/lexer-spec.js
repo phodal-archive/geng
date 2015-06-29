@@ -1,39 +1,21 @@
-describe('Trie', function () {
-	var _trie;
+describe('Lexer', function () {
+	var _lexer;
 	beforeEach(function () {
-		_trie = new Geng.trie();
+		_lexer = new Geng.lexer();
 	});
 
-	it('should correctly split words (origin)', function () {
-		var dict = [
-			"家乡",
-			"松花",
-			"松花江",
-			"那里",
-			"四季",
-			"四季迷人",
-			"迷人",
-			"花香",
-			"hello",
-			"kitty",
-			"fine"
-		];
-		var words = "hello, kitty!我的家乡在松花江边上，那里有四季迷人的花香。fine~";
+	it('should correctly lexer words', function () {
+		spyOn(console, 'log');
+		_lexer.addRule(/^ */gm, function (lexeme) {
+			//console.log(lexeme.length);
+		});
 
-		_trie.init(dict);
-		var result = [ 'hello', 'kitty', '家乡', '松花', '松花江', '那里', '四季', '四季迷人', '迷人', '花香', 'fine' ];
-		expect(_trie.splitWords(words)).toEqual(result);
-	});
+		_lexer.addRule(/[0-9]+/, function (lexeme) {
+			console.log(lexeme);
+		});
 
-	it('should correctly split time words', function () {
-		var dict = [
-			"子时",
-			"古代"
-		];
-		var words = "子时在古代是";
-
-		_trie.init(dict);
-		var result = ['子时','古代'];
-		expect(_trie.splitWords(words)).toEqual(result);
+		_lexer.setInput("37");
+		_lexer.lex();
+		expect(console.log).toHaveBeenCalledWith('37');
 	});
 });
