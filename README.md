@@ -12,26 +12,6 @@
 
 > DSL trilogy 1 NLP. 
 
-##Note
-
-Waiting for Chrome to Support ``Proxy`` to use meta programming
-
-     Object.createHandled = function(proto, objDesc, noSuchMethod) {
-    
-        var handler = {
-          get: function(rcvr, p) {
-            return function() {
-              var args = [].slice.call(arguments, 0);
-              return noSuchMethod.call(this, p, args);
-            };
-          },
-        };
-    
-        var p = Proxy.create(handler, proto);
-        return Object.create(p, objDesc);
-      };
-
-
 ##License##
 
 © 2015 [Phodal Huang](http://www.phodal.com). This code is distributed under the MIT license. See `LICENSE` in this directory.
