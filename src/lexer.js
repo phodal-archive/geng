@@ -31,6 +31,7 @@ function Lexer(defunct) {
 	this.defunct = function (char) {
 		throw new Error("Unexpected character at index " + (this.index - 1) + ": " + char);
 	};
+
 	this.addRule = function (pattern, action, start) {
 		var global = pattern.global;
 

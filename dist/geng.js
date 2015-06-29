@@ -2,6 +2,26 @@
 
   "use strict";
 
+var words = {
+	new: {
+		currently: ['现在', '此时', '此刻', '今', '此时此刻' ],
+		clockwords: ['几点', '什么时间'],
+		equal: ['等于', '是'],
+		numbers: {
+			"零": "0",
+			"壹": "1",
+			"贰": "2",
+			"叁": "3",
+			"肆": "4",
+			"伍": "5",
+			"陆": "6",
+			"柒": "7",
+			"捌": "8",
+			"玖": "9"
+		}
+	}
+};
+
 // code base on http://my.oschina.net/goal/blog/201674
 
 // 停止词
@@ -196,6 +216,7 @@ function Lexer(defunct) {
 	this.defunct = function (char) {
 		throw new Error("Unexpected character at index " + (this.index - 1) + ": " + char);
 	};
+
 	this.addRule = function (pattern, action, start) {
 		var global = pattern.global;
 
@@ -342,14 +363,6 @@ var Geng = function () {
 //
 //var g = new Proxy({}, handler);
 
-Geng.learn = function (rule){
-	if(rule.constructor === RegExp) {
-		this.rule.append(rule);
-	} else {
-		this.error.append('not a regex');
-	}
-};
-
 Geng.parser = function (time) {
 	this.time = time;
 	return this;
@@ -368,6 +381,7 @@ Geng.version = Geng.VERSION = '0.0.0';
 
 Geng.trie = Trie;
 Geng.lexer = Lexer;
+Geng.dict = words;
 root.Geng = Geng;
 
 }(this));

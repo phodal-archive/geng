@@ -11,14 +11,6 @@ var Geng = function () {
 //
 //var g = new Proxy({}, handler);
 
-Geng.learn = function (rule){
-	if(rule.constructor === RegExp) {
-		this.rule.append(rule);
-	} else {
-		this.error.append('not a regex');
-	}
-};
-
 Geng.parser = function (time) {
 	this.time = time;
 	return this;

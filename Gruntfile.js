@@ -35,6 +35,7 @@ module.exports = function (grunt) {
 			dist: {
 				src: [
 					'src/_intro.js',
+					'src/words.js',
 					'src/trie.js',
 					'src/lexer.js',
 					'src/main.js',

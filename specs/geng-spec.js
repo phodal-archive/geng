@@ -11,9 +11,8 @@ describe('Main', function () {
 		expect(result).toBe('子时在古代是');
 	});
 
-
 	it('should correctly lexer words', function () {
-		var dict = ['子时', '古代','现在','此时','此刻','等于','是'], results = [], result, words = [];;
+		var dict = ['子时', '古代','现在','此时','此刻','等于','是'], results = [], result;
 		_trie.init(dict);
 
 		_lexer.addRule(/是|等于/, function (lexeme) {
