@@ -18,4 +18,15 @@ describe('Lexer', function () {
 		_lexer.lex();
 		expect(console.log).toHaveBeenCalledWith('37');
 	});
+
+
+	it('should return input type', function () {
+		_lexer.addRule(/[a-f\d]+/i, function () {
+			return "HEX";
+		});
+
+		_lexer.setInput("aa0000");
+		var result = _lexer.lex();
+		expect(result).toBe('HEX');
+	});
 });
