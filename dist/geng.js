@@ -62,15 +62,12 @@ Node.prototype = {
 	},
 	addCount: function () {
 		this._count++;
-	},
-	getCount: function () {
-		return this._count;
 	}
 };
 
 // Trie树
 function Trie() {
-	this.root = new Node(null);
+	this.root = new Node();
 }
 Trie.prototype = {
 	/**
@@ -99,7 +96,7 @@ Trie.prototype = {
 		// 10xxxxxx
 		byte2 = 0x80 | ((c >> 6) & 0x3F);
 		// 10xxxxxx
-		 byte3 = 0x80 | (c & 0x3F);
+		byte3 = 0x80 | (c & 0x3F);
 
 		return [byte1, byte2, byte3];
 	},
