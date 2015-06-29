@@ -1,7 +1,8 @@
 # Geng
 
 [![Build Status](https://travis-ci.org/phodal/geng.svg?branch=master)](https://travis-ci.org/phodal/geng)
-
+[![Code Climate](https://codeclimate.com/github/phodal/geng/badges/gpa.svg)](https://codeclimate.com/github/phodal/geng)
+[![Test Coverage](https://codeclimate.com/github/phodal/geng/badges/coverage.svg)](https://codeclimate.com/github/phodal/geng/coverage)
 
       __ _  ___ _ __   __ _
      / _` |/ _ \ '_ \ / _` |

@@ -7,3 +7,4 @@ notifications:
 
 before_install: npm install -g grunt-cli
 install: npm install
+after_success: CODECLIMATE_REPO_TOKEN=7b78ab0a59df72026b9146b7b6820e7effd85563355ec054cf456419612a273b codeclimate < coverage/lcov.info
