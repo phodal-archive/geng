@@ -12,6 +12,11 @@
 
 > DSL trilogy 1 NLP. 
 
+##ML Algorithm Libraries
+
+- Trie Tree
+- Bayes
+
 ##License##
 
 © 2015 [Phodal Huang](http://www.phodal.com). This code is distributed under the MIT license. See `LICENSE` in this directory.
