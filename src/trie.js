@@ -157,5 +157,3 @@ Trie.prototype = {
 		}
 	}
 };
-
-Geng.trie = Trie;
