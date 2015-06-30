@@ -9,10 +9,6 @@
 //	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // keys we use to serialize a classifier's state
-var STATE_KEYS = [
-	'categories', 'docCount', 'totalDocuments', 'vocabulary', 'vocabularySize',
-	'wordCount', 'wordFrequencyCount', 'options'
-];
 
 var defaultTokenizer = function (text) {
 	//remove punctuation from text - remove anything that isn't a word char or a space
@@ -219,18 +215,4 @@ Bayes.prototype.frequencyTable = function (tokens) {
 	});
 
 	return frequencyTable;
-};
-
-/**
- * Dump the classifier's state as a JSON string.
- * @return {String} Representation of the classifier.
- */
-Bayes.prototype.toJson = function () {
-	var state = {};
-	var self = this;
-	STATE_KEYS.forEach(function (k) {
-		state[k] = self[k];
-	});
-
-	return JSON.stringify(state);
 };

@@ -25,13 +25,12 @@ describe('Bayes', function () {
 				expect(classifier.options).toEqual({});
 			})
 		});
-		//
 		//it('invalid options (truthy and not object) raise TypeError during init', function () {
-		//	var invalidOptionsCases = [ null, 0, 'a', [] ];
-		//	invalidOptionsCases.forEach(function (invalidOptions) {
-		//		expect(Geng.bayes(invalidOptions)).toThrowError("");
-		//		expect(Geng.bayes(invalidOptions)).toThrow(TypeError);
-		//	})
+			//var invalidOptionsCases = [ null, 0, 'a', [] ];
+			//invalidOptionsCases.forEach(function (invalidOptions) {
+			//	expect(Geng.bayes(0)).toThrow(new TypeError("Bayes got invalid `options`: `0`. Pass in an object."));
+				//expect(new Geng.bayes(invalidOptions)).toThrow(TypeError);
+			//});
 		//})
 	});
 
