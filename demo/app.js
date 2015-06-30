@@ -5,12 +5,20 @@ window.onload = function (){
 	_lexer = new Geng.lexer();
 	_trie = new Geng.trie();
 
-	dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是'];
+	dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是','时间', '北京时间'];
 	_trie.init(dict);
 	document.getElementById('dict').innerText = dict.toString();
 
 	_lexer.addRule(/是|等于/, function (lexeme) {
 		return '==';
+	});
+
+	_lexer.addRule(/北京/, function (lexeme) {
+		return 'Beijing';
+	});
+
+	_lexer.addRule(/时间/, function (lexeme) {
+		return 'Time';
 	});
 
 	_lexer.addRule(/现在|Today|此时|此刻/, function (lexeme) {
