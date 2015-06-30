@@ -36,6 +36,7 @@ module.exports = function (grunt) {
 				src: [
 					'src/_intro.js',
 					'src/words.js',
+					'src/bayes.js',
 					'src/trie.js',
 					'src/lexer.js',
 					'src/main.js',

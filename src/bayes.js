@@ -8,11 +8,17 @@
 //
 //	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+// keys we use to serialize a classifier's state
+var STATE_KEYS = [
+	'categories', 'docCount', 'totalDocuments', 'vocabulary', 'vocabularySize',
+	'wordCount', 'wordFrequencyCount', 'options'
+];
+
 var defaultTokenizer = function (text) {
 	//remove punctuation from text - remove anything that isn't a word char or a space
 	var rgxPunctuation = /[^\w\s]/g;
 	var sanitized = text.replace(rgxPunctuation, ' ');
-	return sanitized.split(/\s+/)
+	return sanitized.split(/\s+/);
 };
 
 /**
@@ -29,9 +35,9 @@ function Bayes(options) {
 	this.options = {};
 	if (typeof options !== 'undefined') {
 		if (!options || typeof options !== 'object' || Array.isArray(options)) {
-			throw TypeError('NaiveBayes got invalid `options`: `' + options + '`. Pass in an object.')
+			throw new TypeError('Bayes got invalid `options`: `' + options + '`. Pass in an object.');
 		}
-		this.options = options
+		this.options = options;
 	}
 
 	this.tokenizer = this.options.tokenizer || defaultTokenizer;
@@ -68,9 +74,9 @@ Bayes.prototype.initializeCategory = function (categoryName) {
 		this.docCount[categoryName] = 0;
 		this.wordCount[categoryName] = 0;
 		this.wordFrequencyCount[categoryName] = {};
-		this.categories[categoryName] = true
+		this.categories[categoryName] = true;
 	}
-	return this
+	return this;
 };
 
 /**
@@ -114,16 +120,17 @@ Bayes.prototype.learn = function (text, category) {
 			var frequencyInText = frequencyTable[token];
 
 			//update the frequency information for this word in this category
-			if (!self.wordFrequencyCount[category][token])
+			if (!self.wordFrequencyCount[category][token]) {
 				self.wordFrequencyCount[category][token] = frequencyInText;
-			else
+			} else {
 				self.wordFrequencyCount[category][token] += frequencyInText;
+			}
 
 			//update the count of all words we have seen mapped to this category
-			self.wordCount[category] += frequencyInText
+			self.wordCount[category] += frequencyInText;
 		});
 
-	return self
+	return self;
 };
 
 /**
@@ -133,12 +140,12 @@ Bayes.prototype.learn = function (text, category) {
  * @return {String} category
  */
 Bayes.prototype.categorize = function (text) {
-	var self = this
-		, maxProbability = -Infinity
-		, chosenCategory = null
+	var self = this;
+	var maxProbability = -Infinity;
+	var chosenCategory = null;
 
-	var tokens = self.tokenizer(text)
-	var frequencyTable = self.frequencyTable(tokens)
+	var tokens = self.tokenizer(text);
+	var frequencyTable = self.frequencyTable(tokens);
 
 	//iterate thru our categories to find the one with max probability for this text
 	Object
@@ -148,32 +155,31 @@ Bayes.prototype.categorize = function (text) {
 			//start by calculating the overall probability of this category
 			//=>  out of all documents we've ever looked at, how many were
 			//    mapped to this category
-			var categoryProbability = self.docCount[category] / self.totalDocuments
+			var categoryProbability = self.docCount[category] / self.totalDocuments;
 
 			//take the log to avoid underflow
-			var logProbability = Math.log(categoryProbability)
+			var logProbability = Math.log(categoryProbability);
 
 			//now determine P( w | c ) for each word `w` in the text
 			Object
 				.keys(frequencyTable)
 				.forEach(function (token) {
-					var frequencyInText = frequencyTable[token]
-					var tokenProbability = self.tokenProbability(token, category)
-
+					var frequencyInText = frequencyTable[token];
+					var tokenProbability = self.tokenProbability(token, category);
 					// console.log('token: %s category: `%s` tokenProbability: %d', token, category, tokenProbability)
 
 					//determine the log of the P( w | c ) for this word
-					logProbability += frequencyInText * Math.log(tokenProbability)
-				})
+					logProbability += frequencyInText * Math.log(tokenProbability);
+				});
 
 			if (logProbability > maxProbability) {
-				maxProbability = logProbability
-				chosenCategory = category
+				maxProbability = logProbability;
+				chosenCategory = category;
 			}
-		})
+		});
 
-	return chosenCategory
-}
+	return chosenCategory;
+};
 
 /**
  * Calculate probability that a `token` belongs to a `category`
@@ -184,14 +190,13 @@ Bayes.prototype.categorize = function (text) {
  */
 Bayes.prototype.tokenProbability = function (token, category) {
 	//how many times this word has occurred in documents mapped to this category
-	var wordFrequencyCount = this.wordFrequencyCount[category][token] || 0
-
+	var wordFrequencyCount = this.wordFrequencyCount[category][token] || 0;
 	//what is the count of all words that have ever been mapped to this category
-	var wordCount = this.wordCount[category]
+	var wordCount = this.wordCount[category];
 
 	//use laplace Add-1 Smoothing equation
-	return ( wordFrequencyCount + 1 ) / ( wordCount + this.vocabularySize )
-}
+	return ( wordFrequencyCount + 1 ) / ( wordCount + this.vocabularySize );
+};
 
 /**
  * Build a frequency hashmap where
@@ -202,30 +207,30 @@ Bayes.prototype.tokenProbability = function (token, category) {
  * @return {Object}
  */
 Bayes.prototype.frequencyTable = function (tokens) {
-	var frequencyTable = {}
+	var frequencyTable = {};
 
 	tokens.forEach(function (token) {
 		if (!frequencyTable[token])
-			frequencyTable[token] = 1
-		else
-			frequencyTable[token]++
-	})
+		{
+			frequencyTable[token] = 1;
+		} else {
+			frequencyTable[token]++;
+		}
+	});
 
-	return frequencyTable
-}
+	return frequencyTable;
+};
 
 /**
  * Dump the classifier's state as a JSON string.
  * @return {String} Representation of the classifier.
  */
 Bayes.prototype.toJson = function () {
-	var state = {}
-	var self = this
+	var state = {};
+	var self = this;
 	STATE_KEYS.forEach(function (k) {
-		state[k] = self[k]
-	})
+		state[k] = self[k];
+	});
 
-	var jsonStr = JSON.stringify(state)
-
-	return jsonStr
-}
+	return JSON.stringify(state);
+};
