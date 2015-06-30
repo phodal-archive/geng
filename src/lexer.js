@@ -18,7 +18,9 @@
 
 function Lexer(defunct) {
 	if (typeof defunct !== "function"){
-		defunct = this.defunct;
+		defunct = function (char) {
+			throw new TypeError("Unexpected character at index " + (this.index - 1) + ": " + char);
+		};
 	}
 
 	var tokens = [];
@@ -27,10 +29,6 @@ function Lexer(defunct) {
 	this.state = 0;
 	this.index = 0;
 	this.input = "";
-
-	this.defunct = function (char) {
-		throw new Error("Unexpected character at index " + (this.index - 1) + ": " + char);
-	};
 
 	this.addRule = function (pattern, action, start) {
 		var global = pattern.global;

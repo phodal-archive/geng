@@ -1,13 +1,3 @@
-//(The MIT License)
-//
-//Copyright (c) by Tolga Tezel tolgatezel11@gmail.com
-//
-//Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-//
-//	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-//
-//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
 describe('Bayes', function () {
 	var _geng, _bayes;
 
@@ -25,13 +15,13 @@ describe('Bayes', function () {
 				expect(classifier.options).toEqual({});
 			})
 		});
-		//it('invalid options (truthy and not object) raise TypeError during init', function () {
-			//var invalidOptionsCases = [ null, 0, 'a', [] ];
-			//invalidOptionsCases.forEach(function (invalidOptions) {
-			//	expect(Geng.bayes(0)).toThrow(new TypeError("Bayes got invalid `options`: `0`. Pass in an object."));
-				//expect(new Geng.bayes(invalidOptions)).toThrow(TypeError);
-			//});
-		//})
+
+		it('invalid options (truthy and not object) raise TypeError during init', function () {
+				expect(function(){Geng.bayes(0)}).toThrow(new TypeError("Bayes got invalid `options`: `0`. Pass in an object."));
+				expect(function(){Geng.bayes(null)}).toThrow(new TypeError("Bayes got invalid `options`: `null`. Pass in an object."));
+				expect(function(){Geng.bayes('a')}).toThrow(new TypeError("Bayes got invalid `options`: `a`. Pass in an object."));
+				expect(function(){Geng.bayes([])}).toThrow(new TypeError("Bayes got invalid `options`: ``. Pass in an object."));
+		})
 	});
 
 	it('should correctly return correspond result', function () {

@@ -4,6 +4,20 @@ describe('Lexer', function () {
 		_lexer = new Geng.lexer();
 	});
 
+	describe('lexer() init', function () {
+		it('invalid options (truthy and not object) raise Error during init', function () {
+			expect(function(){
+				var lexer = new Geng.lexer();
+				lexer.addRule(/[0-9]+/, function (lexeme) {
+					return "Number";
+				});
+
+				lexer.setInput('phodal');
+				lexer.lex();
+			}).toThrow(new TypeError("Unexpected character at index 0: pg"));
+		})
+	});
+
 	it('should correctly lexer words', function () {
 		spyOn(console, 'log');
 		_lexer.addRule(/^ */gm, function (lexeme) {
