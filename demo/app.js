@@ -1,25 +1,31 @@
-var _geng, _lexer, _trie;
+window.onload = function (){
+	var _geng, _lexer, _trie, dict, results = [], result;
 
-_geng = new Geng();
-_lexer = new Geng.lexer();
-_trie = new Geng.trie();
+	_geng = new Geng();
+	_lexer = new Geng.lexer();
+	_trie = new Geng.trie();
 
-var dict = ['子时', '古代','现在','此时','此刻','等于','是'], results = [], result;
-_trie.init(dict);
+	dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是'];
+	_trie.init(dict);
+	document.getElementById('dict').innerText = dict.toString();
 
-_lexer.addRule(/是|等于/, function (lexeme) {
-	return '==';
-});
+	_lexer.addRule(/是|等于/, function (lexeme) {
+		return '==';
+	});
 
-_lexer.addRule(/现在|Today|此时|此刻/, function (lexeme) {
-	return 'Now';
-});
+	_lexer.addRule(/现在|Today|此时|此刻/, function (lexeme) {
+		return 'Now';
+	});
 
-words = _trie.splitWords('现在是');
-words.forEach(function(word){
-	_lexer.setInput(word);
-	result = _lexer.lex();
-	results.push(result);
-});
+	var test_words = '现在是北京时间';
+	document.getElementById('test_words').innerText = test_words;
 
-console.log(results);
+	words = _trie.splitWords(test_words);
+	words.forEach(function (word) {
+		_lexer.setInput(word);
+		result = _lexer.lex();
+		results.push(result);
+	});
+
+	document.getElementById('result').innerText = results;
+};
