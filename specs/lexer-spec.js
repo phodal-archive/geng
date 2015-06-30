@@ -14,7 +14,7 @@ describe('Lexer', function () {
 
 				lexer.setInput('phodal');
 				lexer.lex();
-			}).toThrow(new TypeError("Unexpected character at index 0: pg"));
+			}).toThrow(new TypeError("Unexpected character at index 0: p"));
 		})
 	});
 

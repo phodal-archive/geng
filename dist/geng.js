@@ -522,26 +522,23 @@ function Lexer(defunct) {
 	};
 
 	function scan() {
+		/*jshint validthis: true */
+		var that = this;
 		var matches = [];
 		var index = 0;
-
-		/*jshint validthis: true */
-		var state = this.state;
-		var lastIndex = this.index;
-		var input = this.input;
 
 		for (var i = 0, length = rules.length; i < length; i++) {
 			var rule = rules[i];
 			var start = rule.start;
 			var states = start.length;
 
-			if ((!states || start.indexOf(state) >= 0) ||
-				(state % 2 && states === 1 && !start[0])) {
+			if ((!states || start.indexOf(that.state) >= 0) ||
+				(that.state % 2 && states === 1 && !start[0])) {
 				var pattern = rule.pattern;
-				pattern.lastIndex = lastIndex;
-				var result = pattern.exec(input);
+				pattern.lastIndex = that.index;
+				var result = pattern.exec(that.input);
 
-				if (result && result.index === lastIndex) {
+				if (result && result.index === that.index) {
 					var j = matches.push({
 						result: result,
 						action: rule.action,
