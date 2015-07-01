@@ -23,6 +23,7 @@ describe('Trie', function () {
 		_trie.init(dict);
 		var result = [ 'hello', 'kitty', '家乡', '松花', '松花江', '那里', '四季', '四季迷人', '迷人', '花香', 'fine'];
 		expect(_trie.splitWords(words)).toEqual(result);
+		expect(_trie.splitWords(words)).toEqual(result);
 	});
 
 	it('should correctly split time words', function () {
