@@ -32,5 +32,16 @@ describe('Bayes', function () {
 		expect(result).toBe('positive');
 	});
 
+	it('should correctly return correspond result', function () {
+		var _bayes = new Geng.bayes({
+			tokenizer: "Chinese"
+		});
+		_bayes.learn('现在 是 北京时间', 'New');
+		_bayes.learn('过去 是', 'Old');
+		_bayes.learn('过去 是', 'Old');
+		var result = _bayes.categorize('过去');
+		expect(result).toBe('Old');
+	});
+
 });
 
