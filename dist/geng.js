@@ -41,6 +41,11 @@ var defaultTokenizer = function (text) {
 	return sanitized.split(/\s+/);
 };
 
+var ChineseTokenizer = function (text) {
+	//remove punctuation from text - remove anything that isn't a word char or a space
+	return text.split(/\s+/);
+};
+
 /**
  * Naive-Bayes Classifier
  *
@@ -61,6 +66,10 @@ function Bayes(options) {
 	}
 
 	this.tokenizer = this.options.tokenizer || defaultTokenizer;
+
+	if(this.options.tokenizer === "Chinese"){
+		this.tokenizer = ChineseTokenizer;
+	}
 
 	//initialize our vocabulary and its size
 	this.vocabulary = {};
@@ -564,10 +573,7 @@ function Lexer(defunct) {
 	}
 }
 
-var Geng = function () {
-	this.rule = [];
-	this.error = [];
-};
+var Geng = function () {};
 //
 //var handler = {
 //	get: function(target, name) {

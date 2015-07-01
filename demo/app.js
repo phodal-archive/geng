@@ -6,7 +6,9 @@ window.onload = function () {
 	_trie = new Geng.trie();
 	_trie2 = new Geng.trie();
 	_trie3 = new Geng.trie();
-	_bayes = new Geng.bayes();
+	_bayes = new Geng.bayes({
+		tokenizer: "Chinese"
+	});
 
 	dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是', '时间', '北京', '过去', '的', '日子'];
 	_trie.init(dict);
@@ -47,18 +49,15 @@ window.onload = function () {
 	var toBayesWords2 = words2.toString().replace(/,/g, " ");
 	var toBayesWords3 = words3.toString().replace(/,/g, " ");
 
-	console.log(toBayesWords);
-	console.log(toBayesWords2);
-	console.log(toBayesWords3);
-
 	_bayes.learn(toBayesWords, 'Now');
 	_bayes.learn(toBayesWords2, 'Old');
-	_bayes.learn(toBayesWords3, 'Old');
+	_bayes.learn(toBayesWords3, 'New');
 
-	var bayesResult = _bayes.categorize('现在');
-	var bayesResult2 = _bayes.categorize('过去的');
+	var bayesResult = _bayes.categorize('过去');
+	var bayesResult2 = _bayes.categorize('现在');
+	var bayesResult3 = _bayes.categorize('时间');
 
-	document.getElementById('bayes_result').innerText = bayesResult + "\n" + bayesResult2;
+	document.getElementById('bayes_result').innerText = bayesResult + "\n" + bayesResult2 + "\n" + bayesResult3;
 
 	words.forEach(function (word) {
 		_lexer.setInput(word);

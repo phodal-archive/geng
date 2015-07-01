@@ -1,7 +1,4 @@
-var Geng = function () {
-	this.rule = [];
-	this.error = [];
-};
+var Geng = function () {};
 //
 //var handler = {
 //	get: function(target, name) {
