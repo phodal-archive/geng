@@ -1,7 +1,8 @@
 describe('Trie', function () {
-	var _trie;
+	var _trie, _trie2;
 	beforeEach(function () {
 		_trie = new Geng.trie();
+		_trie2 = new Geng.trie();
 	});
 
 	it('should correctly split words (origin)', function () {
@@ -23,7 +24,8 @@ describe('Trie', function () {
 		_trie.init(dict);
 		var result = [ 'hello', 'kitty', '家乡', '松花', '松花江', '那里', '四季', '四季迷人', '迷人', '花香', 'fine'];
 		expect(_trie.splitWords(words)).toEqual(result);
-		expect(_trie.splitWords(words)).toEqual(result);
+		_trie2.init(dict);
+		expect(_trie2.splitWords(words)).toEqual(result);
 	});
 
 	it('should correctly split time words', function () {

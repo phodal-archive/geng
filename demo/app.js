@@ -1,13 +1,18 @@
 window.onload = function () {
-	var _geng, _lexer, _trie, dict, results = [], result;
+	var _geng, _lexer, _trie, _trie2, _trie3, dict, results = [], result, _bayes;
 
 	_geng = new Geng();
 	_lexer = new Geng.lexer();
 	_trie = new Geng.trie();
+	_trie2 = new Geng.trie();
+	_trie3 = new Geng.trie();
 	_bayes = new Geng.bayes();
 
-	dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是', '时间', '北京', '过去', '的'];
+	dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是', '时间', '北京', '过去', '的', '日子'];
 	_trie.init(dict);
+	_trie2.init(dict);
+	_trie3.init(dict);
+
 	document.getElementById('dict').innerText = dict.toString();
 
 	_lexer.addRule(/是|等于/, function (lexeme) {
@@ -28,13 +33,13 @@ window.onload = function () {
 
 	var test_words = '现在是北京时间';
 	var test_words2 = '过去的子时';
-	var test_words3 = '过去的';
+	var test_words3 = '现在的时间';
 
 	document.getElementById('test_words').innerText = test_words;
 
 	var words = _trie.splitWords(test_words);
-	var words2 = _trie.splitWords(test_words2);
-	var words3 = _trie.splitWords(test_words3);
+	var words2 = _trie2.splitWords(test_words2);
+	var words3 = _trie3.splitWords(test_words3);
 
 	document.getElementById('split').innerText = words;
 
@@ -42,7 +47,9 @@ window.onload = function () {
 	var toBayesWords2 = words2.toString().replace(/,/g, " ");
 	var toBayesWords3 = words3.toString().replace(/,/g, " ");
 
-	console.log(toBayesWords, toBayesWords2, toBayesWords3);
+	console.log(toBayesWords);
+	console.log(toBayesWords2);
+	console.log(toBayesWords3);
 
 	_bayes.learn(toBayesWords, 'Now');
 	_bayes.learn(toBayesWords2, 'Old');
@@ -51,7 +58,7 @@ window.onload = function () {
 	var bayesResult = _bayes.categorize('现在');
 	var bayesResult2 = _bayes.categorize('过去的');
 
-	document.getElementById('bayes_result').innerText = bayesResult + bayesResult2;
+	document.getElementById('bayes_result').innerText = bayesResult + "\n" + bayesResult2;
 
 	words.forEach(function (word) {
 		_lexer.setInput(word);

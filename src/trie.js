@@ -131,12 +131,12 @@ Trie.prototype = {
 		var start = 0, end = bytes.length - 1, result = [];
 
 		while (start != end) {
-			var word = [];
+			var word = [], b, finds;
 			for (var i = start; i <= end; i++) {
-				var b = bytes[i]; // 逐个取出字节
+				b = bytes[i]; // 逐个取出字节
 				word.push(b);
 
-				var finds = this.search(word);
+				finds = this.search(word);
 				if (finds !== false && finds.length > 0) {
 					// 如果在字典中，则添加到分词结果集
 					result = result.concat(finds);
