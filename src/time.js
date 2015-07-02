@@ -1,7 +1,8 @@
-var time = function () {};
+var date = function () {};
 
-time.now = function () {
-	this.ms = new Date().getTime();
+date.now = function () {
+	var date = new Date();
+	this.ms = date.getTime();
 	this.sec = Math.round(this.ms / 1000);
 	this.min = Math.round(this.sec / 60);
 	this.hr = Math.round(this.min / 60);
@@ -9,22 +10,22 @@ time.now = function () {
 	return this;
 };
 
-time.getMs = function () {
+date.getMs = function () {
 	return this.ms;
 };
 
-time.getSec = function () {
+date.getSec = function () {
 	return this.sec;
 };
 
-time.getMin = function () {
+date.getMin = function () {
 	return this.min;
 };
 
-time.getHr = function () {
+date.getHr = function () {
 	return this.hr;
 };
 
-time.getDay = function () {
+date.getDay = function () {
 	return this.day;
 };
