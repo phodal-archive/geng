@@ -11,7 +11,7 @@
      |___/            |___/
  
 
-> DSL trilogy 1 NLP. 
+> A prepare for smart robot's trilogy  
 
 ##ML Algorithm Libraries
 
