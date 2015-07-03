@@ -1,4 +1,4 @@
-var date = function () {};
+var date = {};
 
 date.now = function () {
 	var date = new Date();
