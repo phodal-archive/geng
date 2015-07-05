@@ -7,8 +7,8 @@ describe('Main', function () {
 	});
 
 	it('should correctly convert time', function () {
-		var result = Geng.parser('子时在古代是').to('').convert();
-		expect(result).toBe('子时在古代是');
+		var result = Geng.parser('子时在今天是几点').convert();
+		expect(result).toBe(12);
 	});
 
 	it('should correctly lexer words', function () {
