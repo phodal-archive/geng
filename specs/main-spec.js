@@ -23,7 +23,7 @@ describe('Main', function () {
 			return 'Now';
 		});
 
-		words = _trie.splitWords('现在是');
+		var words = _trie.splitWords('现在是');
 		words.forEach(function(word){
 			_lexer.setInput(word);
 			result = _lexer.lex();

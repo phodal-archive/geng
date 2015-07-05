@@ -1,12 +1,4 @@
 var Geng = function () {};
-//
-//var handler = {
-//	get: function(target, name) {
-//		return target.hasOwnProperty(name) ? target[name] : 42;
-//	}
-//};
-//
-//var g = new Proxy({}, handler);
 
 Geng.parser = function (time) {
 	this.time = time;
