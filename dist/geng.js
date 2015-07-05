@@ -2,26 +2,6 @@
 
   "use strict";
 
-var words = {
-	new: {
-		currently: ['现在', '此时', '此刻', '今', '此时此刻' ],
-		clockwords: ['几点', '什么时间'],
-		equal: ['等于', '是'],
-		numbers: {
-			"零": "0",
-			"壹": "1",
-			"贰": "2",
-			"叁": "3",
-			"肆": "4",
-			"伍": "5",
-			"陆": "6",
-			"柒": "7",
-			"捌": "8",
-			"玖": "9"
-		}
-	}
-};
-
 //(The MIT License)
 //
 //Copyright (c) by Tolga Tezel tolgatezel11@gmail.com
@@ -601,8 +581,8 @@ Geng.version = Geng.VERSION = '0.0.0';
 
 Geng.trie = Trie;
 Geng.lexer = Lexer;
-Geng.dict = words;
 Geng.bayes = Bayes;
+
 root.Geng = Geng;
 
 }(this));
