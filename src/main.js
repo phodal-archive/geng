@@ -1,5 +1,21 @@
 var dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是', '今天', '点'];
 
+//子丑寅卯辰巳午未申酉戌亥
+var old_time = [
+	{time: '子时', from: '23', to: '1'},
+	{time: '丑时', from: '1', to: '3'},
+	{time: '寅时', from: '3', to: '5'},
+	{time: '卯时', from: '5', to: '7'},
+	{time: '辰时', from: '7', to: '9'},
+	{time: '巳时', from: '9', to: '11'},
+	{time: '午时', from: '11', to: '13'},
+	{time: '未时', from: '13', to: '15'},
+	{time: '申时', from: '15', to: '17'},
+	{time: '酉时', from: '17', to: '19'},
+	{time: '戌时', from: '19', to: '21'},
+	{time: '亥时', from: '21', to: '23'}
+];
+
 var Geng = function () {
 };
 
