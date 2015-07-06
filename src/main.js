@@ -1,7 +1,7 @@
 var dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是', '今天', '点'];
 
 //子丑寅卯辰巳午未申酉戌亥
-var old_time = [
+var oldTime = [
 	{time: '子时', from: '23', to: '1'},
 	{time: '丑时', from: '1', to: '3'},
 	{time: '寅时', from: '3', to: '5'},
@@ -15,6 +15,21 @@ var old_time = [
 	{time: '戌时', from: '19', to: '21'},
 	{time: '亥时', from: '21', to: '23'}
 ];
+
+var Utils = function () {};
+
+Utils.arrayToString = function (str) {
+	var result = "";
+	str.forEach(function (time) {
+		result = result + time.time + "|";
+	});
+
+	return result.substring(0, result.length - 1);
+};
+
+Utils.stringToRegex = function (str) {
+	return new RegExp(str);
+};
 
 var Geng = function () {
 };
@@ -37,8 +52,10 @@ Geng.convert = function () {
 
 	_trie.init(dict);
 
-	_lexer.addRule(/子时/, function (lexme) {
-		if(lexme === '子时'){
+
+	var regex = Utils.stringToRegex(Utils.arrayToString(oldTime));
+	_lexer.addRule(regex, function (lexme) {
+		if (lexme === '子时') {
 			return {
 				from: 23,
 				to: 1
