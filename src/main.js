@@ -23,7 +23,10 @@ Geng.convert = function () {
 
 	_lexer.addRule(/子时/, function (lexme) {
 		if(lexme === '子时'){
-			return 12;
+			return {
+				from: 23,
+				to: 1
+			};
 		}
 		return 0;
 	});

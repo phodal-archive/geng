@@ -578,7 +578,10 @@ Geng.convert = function () {
 
 	_lexer.addRule(/子时/, function (lexme) {
 		if(lexme === '子时'){
-			return 12;
+			return {
+				from: 23,
+				to: 1
+			};
 		}
 		return 0;
 	});
@@ -596,7 +599,6 @@ Geng.convert = function () {
 	});
 
 	var words = _trie.splitWords(this.time);
-	console.log(words);
 	words.forEach(function (word) {
 		_lexer.setInput(word);
 		result = _lexer.lex();
