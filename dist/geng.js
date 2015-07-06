@@ -553,7 +553,7 @@ function Lexer(defunct) {
 	}
 }
 
-var dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是', '今天', '点'];
+var dict = ['古代', '现在', '此时', '此刻', '等于', '是', '今天', '点'];
 
 //子丑寅卯辰巳午未申酉戌亥
 var oldTime = [
@@ -571,9 +571,17 @@ var oldTime = [
 	{time: '亥时', from: '21', to: '23'}
 ];
 
-var Utils = function () {};
+var Utils = {};
 
-Utils.arrayToString = function (str) {
+Utils.combinedString = function (dict, str) {
+	str.forEach(function (time) {
+		dict.push(time.time);
+	});
+
+	return dict;
+};
+
+Utils.arrayToStringRegex = function (str) {
 	var result = "";
 	str.forEach(function (time) {
 		result = result + time.time + "|";
@@ -594,29 +602,26 @@ Geng.parser = function (time) {
 	return this;
 };
 
-Geng.to = function (type) {
-	this.type = type;
-	return this;
-};
-
 Geng.convert = function () {
 	var results = [],
 		result,
 		_trie = new Geng.trie(),
 		_lexer = new Geng.lexer();
 
-	_trie.init(dict);
+	var combined = Utils.combinedString(dict, oldTime);
+	_trie.init(combined);
 
-
-	var regex = Utils.stringToRegex(Utils.arrayToString(oldTime));
+	var regex = Utils.stringToRegex(Utils.arrayToStringRegex(oldTime));
 	_lexer.addRule(regex, function (lexme) {
-		if (lexme === '子时') {
-			return {
-				from: 23,
-				to: 1
-			};
-		}
-		return 0;
+		var result = {};
+		oldTime.forEach(function (time) {
+			if(time.time === lexme) {
+				result = time;
+				delete result.time;
+			}
+		});
+
+		return result;
 	});
 
 	_lexer.addRule(/现在|Today|此时|此刻|今天/, function () {
@@ -638,6 +643,7 @@ Geng.convert = function () {
 		results.push(result);
 	});
 
+	console.log(results[0]);
 	return results[0];
 };
 
