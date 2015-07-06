@@ -554,6 +554,7 @@ function Lexer(defunct) {
 }
 
 var dict = ['古代', '现在', '此时', '此刻', '等于', '是', '今天', '点'];
+var combinedDict = [];
 
 //子丑寅卯辰巳午未申酉戌亥
 var oldTime = [
@@ -594,6 +595,8 @@ Utils.stringToRegex = function (str) {
 	return new RegExp(str);
 };
 
+combinedDict = Utils.combinedString(dict, oldTime);
+
 var Geng = function () {
 };
 
@@ -608,8 +611,7 @@ Geng.convert = function () {
 		_trie = new Geng.trie(),
 		_lexer = new Geng.lexer();
 
-	var combined = Utils.combinedString(dict, oldTime);
-	_trie.init(combined);
+	_trie.init(combinedDict);
 
 	var regex = Utils.stringToRegex(Utils.arrayToStringRegex(oldTime));
 	_lexer.addRule(regex, function (lexme) {
@@ -643,7 +645,6 @@ Geng.convert = function () {
 		results.push(result);
 	});
 
-	console.log(results[0]);
 	return results[0];
 };
 

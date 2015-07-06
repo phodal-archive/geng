@@ -8,6 +8,7 @@ describe('Main', function () {
 
 	it('should correctly convert time', function () {
 		expect(Geng.parser('子时在今天是几点').convert()).toEqual({from: '23', to: '1'});
+		expect(Geng.parser('丑时在今天是几点').convert()).toEqual({from: '1', to: '3'});
 	});
 
 	it('should correctly lexer words', function () {
