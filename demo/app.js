@@ -1,7 +1,6 @@
 window.onload = function () {
-	var _geng, _lexer, _trie, _trie2, _trie3, dict, results = [], result, _bayes;
+	var _lexer, _trie, _trie2, _trie3, dict, results = [], result, _bayes;
 
-	_geng = new Geng();
 	_lexer = new Geng.lexer();
 	_trie = new Geng.trie();
 	_trie2 = new Geng.trie();
@@ -17,19 +16,19 @@ window.onload = function () {
 
 	document.getElementById('dict').innerText = dict.toString();
 
-	_lexer.addRule(/是|等于/, function (lexeme) {
+	_lexer.addRule(/是|等于/, function () {
 		return '==';
 	});
 
-	_lexer.addRule(/北京/, function (lexeme) {
+	_lexer.addRule(/北京/, function () {
 		return 'Beijing';
 	});
 
-	_lexer.addRule(/时间/, function (lexeme) {
+	_lexer.addRule(/时间/, function () {
 		return 'Time';
 	});
 
-	_lexer.addRule(/现在|Today|此时|此刻/, function (lexeme) {
+	_lexer.addRule(/现在|Today|此时|此刻/, function () {
 		return 'Now';
 	});
 
