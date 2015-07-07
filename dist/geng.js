@@ -595,6 +595,19 @@ Utils.stringToRegex = function (str) {
 	return new RegExp(str);
 };
 
+Utils.extend = function (object) {
+	var source, prop;
+	for (var i = 1, length = arguments.length; i < length; i++) {
+		source = arguments[i];
+		for (prop in source) {
+			if (hasOwnProperty.call(source, prop)) {
+				object[prop] = source[prop];
+			}
+		}
+	}
+	return object;
+};
+
 combinedDict = Utils.combinedString(dict, oldTime);
 
 var Geng = function () {
@@ -606,7 +619,7 @@ Geng.parser = function (time) {
 };
 
 Geng.convert = function () {
-	var results = [],
+	var results = {},
 		result,
 		trieTree = new Geng.trie(),
 		lexer = new Geng.lexer();
@@ -617,35 +630,35 @@ Geng.convert = function () {
 	lexer.addRule(oldTimeRegex, function (lexme) {
 		var result = {};
 		oldTime.forEach(function (time) {
-			if(time.time === lexme) {
+			if (time.time === lexme) {
 				result = time;
 				delete result.time;
 			}
 		});
 
-		return result;
+		return {time: result};
 	});
 
 	lexer.addRule(/现在|Today|此时|此刻|今天/, function () {
-		return 'Now';
+		return {now: true};
 	});
 
 	lexer.addRule(/是|等于/, function () {
-		return '==';
+		return {condition: "equal"};
 	});
 
 	lexer.addRule(/点/, function () {
-		return 'hr';
+		return {clock: "hour"};
 	});
 
 	var words = trieTree.splitWords(this.time);
 	words.forEach(function (word) {
 		lexer.setInput(word);
 		result = lexer.lex();
-		results.push(result);
+		Utils.extend(results, result);
 	});
 
-	return results[0];
+	return results.time;
 };
 
 Geng.version = Geng.VERSION = '0.0.1';
