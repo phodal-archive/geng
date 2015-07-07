@@ -53,13 +53,13 @@ Geng.parser = function (time) {
 Geng.convert = function () {
 	var results = [],
 		result,
-		_trie = new Geng.trie(),
-		_lexer = new Geng.lexer();
+		trieTree = new Geng.trie(),
+		lexer = new Geng.lexer();
 
-	_trie.init(combinedDict);
+	trieTree.init(combinedDict);
 
-	var regex = Utils.stringToRegex(Utils.arrayToStringRegex(oldTime));
-	_lexer.addRule(regex, function (lexme) {
+	var oldTimeRegex = Utils.stringToRegex(Utils.arrayToStringRegex(oldTime));
+	lexer.addRule(oldTimeRegex, function (lexme) {
 		var result = {};
 		oldTime.forEach(function (time) {
 			if(time.time === lexme) {
@@ -71,26 +71,26 @@ Geng.convert = function () {
 		return result;
 	});
 
-	_lexer.addRule(/现在|Today|此时|此刻|今天/, function () {
+	lexer.addRule(/现在|Today|此时|此刻|今天/, function () {
 		return 'Now';
 	});
 
-	_lexer.addRule(/是|等于/, function () {
+	lexer.addRule(/是|等于/, function () {
 		return '==';
 	});
 
-	_lexer.addRule(/点/, function () {
+	lexer.addRule(/点/, function () {
 		return 'hr';
 	});
 
-	var words = _trie.splitWords(this.time);
+	var words = trieTree.splitWords(this.time);
 	words.forEach(function (word) {
-		_lexer.setInput(word);
-		result = _lexer.lex();
+		lexer.setInput(word);
+		result = lexer.lex();
 		results.push(result);
 	});
 
 	return results[0];
 };
 
-Geng.version = Geng.VERSION = '0.0.0';
+Geng.version = Geng.VERSION = '0.0.1';
