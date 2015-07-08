@@ -572,6 +572,8 @@ var oldTime = [
 	{time: '亥时', from: '21', to: '23'}
 ];
 
+var nowWords = ['现在','Today','此时','此刻','今天'];
+
 var Utils = {};
 
 Utils.combinedString = function (dict, str) {
@@ -582,10 +584,19 @@ Utils.combinedString = function (dict, str) {
 	return dict;
 };
 
-Utils.arrayToStringRegex = function (str) {
+Utils.objectToStringRegex = function (str) {
 	var result = "";
 	str.forEach(function (time) {
 		result = result + time.time + "|";
+	});
+
+	return result.substring(0, result.length - 1);
+};
+
+Utils.arrayToStringRegex = function (str) {
+	var result = "";
+	str.forEach(function (data) {
+		result = result + data + "|";
 	});
 
 	return result.substring(0, result.length - 1);
@@ -626,7 +637,7 @@ Geng.convert = function () {
 
 	trieTree.init(combinedDict);
 
-	var oldTimeRegex = Utils.stringToRegex(Utils.arrayToStringRegex(oldTime));
+	var oldTimeRegex = Utils.stringToRegex(Utils.objectToStringRegex(oldTime));
 	lexer.addRule(oldTimeRegex, function (lexme) {
 		var result = {};
 		oldTime.forEach(function (time) {
@@ -639,7 +650,8 @@ Geng.convert = function () {
 		return {time: result};
 	});
 
-	lexer.addRule(/现在|Today|此时|此刻|今天/, function () {
+	var newWordsRegex = Utils.stringToRegex(Utils.arrayToStringRegex(nowWords));
+	lexer.addRule(newWordsRegex, function () {
 		return {now: true};
 	});
 
