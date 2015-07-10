@@ -1,4 +1,4 @@
-var dict = ['古代', '现在', '此时', '此刻', '等于', '是', '今天', '点'];
+var dict = ['古代', '现在', '此时', '此刻', '等于', '是', '今天'];
 var combinedDict = [];
 
 //子丑寅卯辰巳午未申酉戌亥
@@ -112,10 +112,6 @@ Geng.convert = function () {
 	var eqRegex = Utils.stringToRegex(Utils.arrayToStringRegex(eq));
 	lexer.addRule(eqRegex, function () {
 		return {condition: "equal"};
-	});
-
-	lexer.addRule(/点/, function () {
-		return {clock: "hour"};
 	});
 
 	var words = trieTree.splitWords(this.time);
