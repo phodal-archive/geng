@@ -577,18 +577,16 @@ var eq = ['是', '等于'];
 
 var Utils = {};
 
-Utils.combinedString = function (dict, str) {
-	str.forEach(function (time) {
-		dict.push(time);
-	});
-
-	return dict;
-};
-
 Utils.combinedObjString = function (dict, str) {
-	str.forEach(function (time) {
-		dict.push(time.time);
-	});
+	if(typeof str[0] !== 'object'){
+		str.forEach(function (data) {
+			dict.push(data);
+		});
+	} else {
+		str.forEach(function (time) {
+			dict.push(time.time);
+		});
+	}
 
 	return dict;
 };
@@ -629,8 +627,8 @@ Utils.extend = function (object) {
 };
 
 combinedDict = Utils.combinedObjString(dict, oldTime);
-combinedDict = Utils.combinedString(combinedDict, nowWords);
-combinedDict = Utils.combinedString(combinedDict, eq);
+combinedDict = Utils.combinedObjString(combinedDict, nowWords);
+combinedDict = Utils.combinedObjString(combinedDict, eq);
 
 var Geng = function () {
 };
