@@ -679,7 +679,7 @@ Geng.convert = function () {
 	return results.time;
 };
 
-Geng.version = Geng.VERSION = '0.0.1';
+Geng.version = Geng.VERSION = '0.0.2';
 
 Geng.trie = Trie;
 Geng.lexer = Lexer;
