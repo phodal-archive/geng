@@ -573,10 +573,19 @@ var oldTime = [
 ];
 
 var nowWords = ['现在','Today','此时','此刻','今天'];
+var eq = ['是', '等于'];
 
 var Utils = {};
 
 Utils.combinedString = function (dict, str) {
+	str.forEach(function (time) {
+		dict.push(time);
+	});
+
+	return dict;
+};
+
+Utils.combinedObjString = function (dict, str) {
 	str.forEach(function (time) {
 		dict.push(time.time);
 	});
@@ -619,7 +628,9 @@ Utils.extend = function (object) {
 	return object;
 };
 
-combinedDict = Utils.combinedString(dict, oldTime);
+combinedDict = Utils.combinedObjString(dict, oldTime);
+combinedDict = Utils.combinedString(combinedDict, nowWords);
+combinedDict = Utils.combinedString(combinedDict, eq);
 
 var Geng = function () {
 };
@@ -655,7 +666,8 @@ Geng.convert = function () {
 		return {now: true};
 	});
 
-	lexer.addRule(/是|等于/, function () {
+	var eqRegex = Utils.stringToRegex(Utils.arrayToStringRegex(eq));
+	lexer.addRule(eqRegex, function () {
 		return {condition: "equal"};
 	});
 
