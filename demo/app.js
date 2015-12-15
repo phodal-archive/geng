@@ -1,68 +1,52 @@
 window.onload = function () {
-	var _lexer, _trie, _trie2, _trie3, dict, results = [], result, _bayes;
+  var _lexer, _trie, dict;
 
-	_lexer = new Geng.lexer();
-	_trie = new Geng.trie();
-	_trie2 = new Geng.trie();
-	_trie3 = new Geng.trie();
-	_bayes = new Geng.bayes({
-		tokenizer: "Chinese"
-	});
+  var clock = 0;
+  var deviceId = 0;
+  var open = false;
 
-	dict = ['子时', '古代', '现在', '此时', '此刻', '等于', '是', '时间', '北京', '过去', '的', '日子'];
-	_trie.init(dict);
-	_trie2.init(dict);
-	_trie3.init(dict);
+  _lexer = new Geng.lexer();
+  _trie = new Geng.trie();
 
-	document.getElementById('dict').innerText = dict.toString();
+  dict = ['晚上', '八点', '打开', '开启', '电暖'];
+  _trie.init(dict);
 
-	_lexer.addRule(/是|等于/, function () {
-		return '==';
-	});
+  document.getElementById('dict').innerText = dict.toString();
 
-	_lexer.addRule(/北京/, function () {
-		return 'Beijing';
-	});
+  _lexer.addRule(/晚上/, function () {
+    clock = clock + 12;
+  });
 
-	_lexer.addRule(/时间/, function () {
-		return 'Time';
-	});
+  _lexer.addRule(/八点/, function () {
+    clock = clock + 8;
+  });
 
-	_lexer.addRule(/现在|Today|此时|此刻/, function () {
-		return 'Now';
-	});
+  _lexer.addRule(/开启|打开/, function () {
+    open = true;
+  });
 
-	var test_words = '现在是北京时间';
-	var test_words2 = '过去的子时';
-	var test_words3 = '现在的时间';
+  _lexer.addRule(/电暖气|电暖|暖气/, function (lexeme) {
+    deviceId = 1;
+  });
 
-	document.getElementById('test_words').innerText = test_words;
+  var test_words = '晚上八点打开电暖气';
+  var words = _trie.splitWords(test_words);
 
-	var words = _trie.splitWords(test_words);
-	var words2 = _trie2.splitWords(test_words2);
-	var words3 = _trie3.splitWords(test_words3);
+  function devices(number) {
+    console.log(number);
+  }
 
-	document.getElementById('split').innerText = words;
+  devices.prototype.openAt = function (clock) {
+      console.log(clock);
+  };
 
-	var toBayesWords = words.toString().replace(/,/g, " ");
-	var toBayesWords2 = words2.toString().replace(/,/g, " ");
-	var toBayesWords3 = words3.toString().replace(/,/g, " ");
+  words.forEach(function (word) {
+    _lexer.setInput(word);
+    _lexer.lex();
+  });
 
-	_bayes.learn(toBayesWords, 'Now');
-	_bayes.learn(toBayesWords2, 'Old');
-	_bayes.learn(toBayesWords3, 'New');
-
-	var bayesResult = _bayes.categorize('过去');
-	var bayesResult2 = _bayes.categorize('现在');
-	var bayesResult3 = _bayes.categorize('时间');
-
-	document.getElementById('bayes_result').innerText = bayesResult + "\n" + bayesResult2 + "\n" + bayesResult3;
-
-	words.forEach(function (word) {
-		_lexer.setInput(word);
-		result = _lexer.lex();
-		results.push(result);
-	});
-
-	document.getElementById('result').innerText = results;
+  if (open) {
+    var device = new devices(deviceId);
+    device.openAt(clock);
+  }
 };
